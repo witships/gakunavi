@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+@theme {
+	/* 画像のブランドカラーに基づいた定義 */
+	--color-primary: #1d93e1;
+	--color-secondary: #f38627;
+	--color-accent: #fefaec;
+}
+
+a,
+button {
+	cursor: pointer;
+}
