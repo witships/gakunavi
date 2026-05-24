@@ -107,7 +107,7 @@
 				>ログイン</button
 			>
 			<button
-				class="rounded-full bg-secondary px-6 py-2 text-sm font-bold text-white shadow-lg shadow-orange-200 transition-all hover:bg-orange-600"
+				class="rounded-full bg-primary px-6 py-2 text-sm font-bold text-white shadow-lg shadow-blue-200 transition-all hover:scale-105"
 				>無料体験に申し込む ＞</button
 			>
 		</div>
@@ -121,7 +121,7 @@
 			<div class="flex-1 space-y-8 text-center lg:text-left">
 				<h2 class="text-5xl leading-tight font-black text-slate-900 lg:text-7xl">
 					“<span class="text-primary">好き</span>”をつなげて、<br />
-					<span class="font-extrabold text-secondary italic">未来</span>をつくろう。
+					<span class="font-extrabold text-secondary italic">未来</span> をつくろう。
 				</h2>
 				<p class="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 lg:mx-0">
 					がくなびは、自分のペースで学べるオンライン学習。
@@ -167,7 +167,7 @@
 	</section>
 
 	<!-- About Section -->
-	<section id="about" class="bg-blue-50 px-6 py-24">
+	<section id="about" class="bg-blue-50 px-6 pt-28 pb-24">
 		<div class="mx-auto max-w-7xl">
 			<div class="flex flex-col items-center gap-12 lg:flex-row">
 				<div class="flex-1 space-y-6">
@@ -218,7 +218,7 @@
 			<!-- Workshop Card -->
 			{#each workshops as ws (ws.title)}
 				<div
-					class="group rounded-3xl border border-slate-100 bg-white p-1 text-left shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl"
+					class="reveal-on-scroll group rounded-3xl border border-slate-100 bg-white p-1 text-left shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl"
 				>
 					<div class="flex items-center justify-center">
 						<div class="mb-4 text-4xl">{ws.icon}</div>
@@ -317,7 +317,7 @@
 		<div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-3">
 			{#each members as member (member.name)}
 				<div
-					class="flex items-center gap-6 rounded-3xl border border-slate-100 bg-white p-8 shadow-sm"
+					class="reveal-on-scroll flex items-center gap-6 rounded-3xl border border-slate-100 bg-white p-8 shadow-sm"
 				>
 					<div
 						class="h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-white bg-slate-200 shadow-sm"
@@ -344,7 +344,7 @@
 			</p>
 
 			<button
-				class="rounded-full bg-secondary px-16 py-6 text-2xl font-black text-white shadow-2xl shadow-orange-900/50 transition-all hover:scale-105 hover:bg-orange-400"
+				class="rounded-full bg-primary px-16 py-6 text-2xl font-black text-white shadow-2xl transition-all hover:scale-105"
 			>
 				無料体験に申し込む ＞
 			</button>
@@ -406,10 +406,48 @@
 		background-size: cover;
 		background-position: right;
 		background-repeat: no-repeat;
+		clip-path: ellipse(150% 100% at 50% 0%);
+		/* clip-path: url(#wave-clip); */
+	}
+
+	#about {
+		margin-top: -3rem;
+		background-image: url('/images/about.webp');
+		background-size: cover;
+		background-position: right;
+		background-repeat: no-repeat;
 	}
 
 	.final {
 		background-image: url('/images/footer.webp');
 		background-size: cover;
+	}
+
+	/* 1. アニメーション（キーフレーム）の定義 */
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateX(100px) scale(0.8);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0) scale(1);
+		}
+	}
+	/* 2. アニメーションを適用するクラス */
+	.reveal-on-scroll {
+		/* 互換性のためのフォールバック（未対応ブラウザでは最初から表示されるようにする） */
+		opacity: 1;
+		/* スクロール駆動アニメーションに対応しているブラウザのみに適用 */
+		@supports (animation-timeline: view()) {
+			animation: fadeInUp linear both;
+
+			/* スクロール量（ビューポートとの交差）をアニメーションのタイムラインにする */
+			animation-timeline: view();
+
+			/* アニメーションを開始・終了するタイミングの調整 */
+			/* entry 10% (画面の下端に入り始めた時) から cover 30% までに完了 */
+			animation-range: entry 20% cover 30%;
+		}
 	}
 </style>
